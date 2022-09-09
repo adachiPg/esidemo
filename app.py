@@ -1,6 +1,10 @@
 from flask import Flask, jsonify
 
+from inquiry import procAq
+
 app = Flask(__name__)
+# app.config.from_object('config.DevConfig')
+app.config.from_object('config.ProdConfig')
 
 data = [
         {
@@ -23,6 +27,11 @@ data = [
 @app.route('/')
 def hello():
     return "Hello Flask-Heroku"
+
+@app.route('/inquiry', methods=['GET'])
+def inquiry():
+    procAq()
+    return 'test inquiry'
 
 
 @app.route('/api', methods=['GET'])
